@@ -7,5 +7,7 @@
         Task<int?> GetUserId(string userId);
 
         Task<bool> ExistById(string userId);
+
+        Task<bool> CheckIfHeIsSalesMan(string userId);
     }
 }

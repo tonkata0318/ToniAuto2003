@@ -9,5 +9,7 @@
         Task<int?> GetUserId(string userId);
 
         Task<bool> ExistById(string userId);
+
+        Task<bool> CheckIfHeIsClient(string userId);
     }
 }

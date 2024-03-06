@@ -29,6 +29,11 @@ namespace ToniAuto2003.Controllers
             {
                 return BadRequest();
             }
+            if (await _clients.CheckIfHeIsSalesMan(userId))
+            {
+                ModelState.AddModelError(nameof(userId),
+                    "This user is already existing salesman");
+            }
 
             if (!ModelState.IsValid)
             {

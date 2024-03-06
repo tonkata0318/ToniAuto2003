@@ -36,6 +36,12 @@ namespace ToniAuto2003.Controllers
                     "Phone number already exist enter another one");
             }
 
+            if (await _salesMans.CheckIfHeIsClient(userId))
+            {
+                ModelState.AddModelError(nameof(userId),
+                   "You are already a salesman stick to the team");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View();

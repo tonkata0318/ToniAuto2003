@@ -13,6 +13,11 @@ namespace ToniAuto2003.Services.SalesMan
             _data = data;
         }
 
+        public async Task<bool> CheckIfHeIsClient(string userId)
+        {
+            return await _data.Clients.AnyAsync(x => x.UserId == userId);
+        }
+
         public async Task Create(string userId, string phoneNumber)
         {
             var salesMan = new Data.SalesMan()
