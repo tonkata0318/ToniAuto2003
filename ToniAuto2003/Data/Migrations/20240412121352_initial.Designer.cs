@@ -12,7 +12,7 @@ using ToniAuto2003.Data;
 namespace ToniAuto2003.Data.Migrations
 {
     [DbContext(typeof(ToniAutoDbContext))]
-    [Migration("20240303135957_initial")]
+    [Migration("20240412121352_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,15 +145,15 @@ namespace ToniAuto2003.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d573fd12-e05e-484f-9fce-1890de8965ff",
+                            ConcurrencyStamp = "eeccf76a-32e8-43a4-9241-72d2f0a6d6d7",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOfXatL4QTFknJ8G082WpfJet2mF6xqIdetCSoPjnD0RIULSZpWDun+LNs8BAUSb9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO5MQuh+39Fct8CYeHHtwXq/m9EVj9a4oBdXMpqIHm7OxERxyIWRy9QOBXY/lDGJ8A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5f3a991e-bc19-4e3f-97b9-bcf4af1be160",
+                            SecurityStamp = "dc998d2c-8459-4516-976e-3d3a9656d5f0",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -161,15 +161,15 @@ namespace ToniAuto2003.Data.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f24e13f6-f4d4-4078-8589-84bf835332a6",
+                            ConcurrencyStamp = "5ea5283e-36f5-4564-88e4-3eeb9d5263b8",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAkWR+8ONmf5d9WpxTluXchgbn6QuSo256pUADuriTqbvts5fXPT7z9jydBG2AzYBg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIWUXc7yOvw7w1GLjovOmqEYRjN9DE2wkFyHhuUzUaOL5Ui6olzIw+njDN14btcSww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a703518c-5e38-46c1-a15b-7f2d952324fa",
+                            SecurityStamp = "b6769cd0-d943-4a1b-93e2-8072520faba4",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -441,38 +441,6 @@ namespace ToniAuto2003.Data.Migrations
                     b.ToTable("Leasings");
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.SalesMan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SalesMans");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            PhoneNumber = "+359888888888",
-                            UserId = "dea12856-c198-4129-b3f3-b893d8395082"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -571,17 +539,6 @@ namespace ToniAuto2003.Data.Migrations
                 });
 
             modelBuilder.Entity("ToniAuto2003.Data.Clients", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ToniAuto2003.Data.SalesMan", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()

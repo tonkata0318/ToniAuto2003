@@ -40,10 +40,6 @@ namespace ToniAuto2003.Data
             builder.Entity<IdentityUser>()
                .HasData(SalesManUser, GuestUser);
 
-            SeedSalesMan();
-            builder.Entity<SalesMan>()
-                .HasData(SalesMan);
-
             SeedCategories();
             builder.Entity<Category>()
                 .HasData
@@ -81,7 +77,6 @@ namespace ToniAuto2003.Data
 
         private Category CUVCategory { get; set; }
 
-        private SalesMan SalesMan { get; set; }
 
         public DbSet<Catalogue> Catalogues { get; set; }
 
@@ -93,7 +88,6 @@ namespace ToniAuto2003.Data
 
         public DbSet<Leasing> Leasings { get; set; }
 
-        public DbSet<SalesMan> SalesMans { get; set; }
 
 
         private void SeedUsers()
@@ -123,15 +117,6 @@ namespace ToniAuto2003.Data
 
             GuestUser.PasswordHash =
             hasher.HashPassword(GuestUser, "guest123");
-        }
-        private void SeedSalesMan()
-        {
-            SalesMan = new SalesMan()
-            {
-                Id = 1,
-                PhoneNumber = "+359888888888",
-                UserId = SalesManUser.Id
-            };
         }
         private void SeedCategories()
         {

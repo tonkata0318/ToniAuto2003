@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToniAuto2003.Contracts.Client;
-using ToniAuto2003.Contracts.SalesMan;
 using ToniAuto2003.Data;
 using ToniAuto2003.Services.Client;
-using ToniAuto2003.Services.SalesMan;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +21,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 }).AddEntityFrameworkStores<ToniAutoDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IClientInterface,ClientService>();
-builder.Services.AddTransient<ISalesManInterface, SalesManService>();
 
 var app = builder.Build();
 

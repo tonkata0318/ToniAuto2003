@@ -56,26 +56,6 @@ namespace ToniAuto2003.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SalesMans",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SalesMans", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SalesMans_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Catalogues",
                 columns: table => new
                 {
@@ -150,8 +130,8 @@ namespace ToniAuto2003.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "f24e13f6-f4d4-4078-8589-84bf835332a6", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEAkWR+8ONmf5d9WpxTluXchgbn6QuSo256pUADuriTqbvts5fXPT7z9jydBG2AzYBg==", null, false, "a703518c-5e38-46c1-a15b-7f2d952324fa", false, "guest@mail.com" },
-                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "d573fd12-e05e-484f-9fce-1890de8965ff", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEOfXatL4QTFknJ8G082WpfJet2mF6xqIdetCSoPjnD0RIULSZpWDun+LNs8BAUSb9Q==", null, false, "5f3a991e-bc19-4e3f-97b9-bcf4af1be160", false, "agent@mail.com" }
+                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "5ea5283e-36f5-4564-88e4-3eeb9d5263b8", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEIWUXc7yOvw7w1GLjovOmqEYRjN9DE2wkFyHhuUzUaOL5Ui6olzIw+njDN14btcSww==", null, false, "b6769cd0-d943-4a1b-93e2-8072520faba4", false, "guest@mail.com" },
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "eeccf76a-32e8-43a4-9241-72d2f0a6d6d7", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEO5MQuh+39Fct8CYeHHtwXq/m9EVj9a4oBdXMpqIHm7OxERxyIWRy9QOBXY/lDGJ8A==", null, false, "dc998d2c-8459-4516-976e-3d3a9656d5f0", false, "agent@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -168,11 +148,6 @@ namespace ToniAuto2003.Data.Migrations
                     { 7, "SUVCategory cars" },
                     { 8, "CUVCategory cars" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "SalesMans",
-                columns: new[] { "Id", "PhoneNumber", "UserId" },
-                values: new object[] { 1, "+359888888888", "dea12856-c198-4129-b3f3-b893d8395082" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CatalogueId",
@@ -208,20 +183,12 @@ namespace ToniAuto2003.Data.Migrations
                 name: "IX_Clients_UserId",
                 table: "Clients",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SalesMans_UserId",
-                table: "SalesMans",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Cars");
-
-            migrationBuilder.DropTable(
-                name: "SalesMans");
 
             migrationBuilder.DropTable(
                 name: "Catalogues");
