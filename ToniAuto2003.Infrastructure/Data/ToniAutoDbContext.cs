@@ -12,6 +12,12 @@ namespace ToniAuto2003.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Catalogue>()
+                .HasOne(c=>c.Category)
+                .WithMany(c=>c.Catalogues)
+                .HasForeignKey(c=>c.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<Car>()
                 .HasOne(c=>c.Category)
                 .WithMany()
@@ -69,6 +75,8 @@ namespace ToniAuto2003.Data
 
         private Category CUVCategory { get; set; }
 
+
+        public DbSet<Catalogue> Catalogues { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 

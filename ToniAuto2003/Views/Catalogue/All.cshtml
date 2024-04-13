@@ -1,6 +1,11 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "All Catalogue";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+@*<div class="container flex-row">
+    @foreach (var catalogue in Model)
+    {
+        <button asp-action="DisplayCatalog" asp-controller="CatalogueController">@catalogue.Category</button>
+    }
+</div>*@

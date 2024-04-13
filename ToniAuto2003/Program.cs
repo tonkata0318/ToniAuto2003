@@ -1,26 +1,11 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using ToniAuto2003.Contracts.Client;
-using ToniAuto2003.Data;
-using ToniAuto2003.Services.Client;
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ToniAutoDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddApplicationDbContext(builder.Configuration);
+builder.Services.AddApplicationIdentity(builder.Configuration);
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = false;
-    options.Password.RequireDigit = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-}).AddEntityFrameworkStores<ToniAutoDbContext>();
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<IClientInterface,ClientService>();
+
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

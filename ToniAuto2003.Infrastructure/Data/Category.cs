@@ -13,5 +13,6 @@ namespace ToniAuto2003.Data
         [MaxLength(MaxCategoryName)]
         public string Name { get; set; } = string.Empty;
 
+        public ICollection<Catalogue> Catalogues { get; set; } = new List<Catalogue>();
     }
 }
