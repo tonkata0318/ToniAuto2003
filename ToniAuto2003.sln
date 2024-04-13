@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToniAuto2003", "ToniAuto2003\ToniAuto2003.csproj", "{B2E4FB91-4FDD-4966-B093-EC8C43E7DA4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToniAuto2003.Core", "ToniAuto2003.Core\ToniAuto2003.Core.csproj", "{C693F43B-6E53-48D2-A926-B64AA3F1CE5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToniAuto2003.Infrastructure", "ToniAuto2003.Infrastructure\ToniAuto2003.Infrastructure.csproj", "{697DA19E-5DD2-49F7-858D-6257FB08E25F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B2E4FB91-4FDD-4966-B093-EC8C43E7DA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2E4FB91-4FDD-4966-B093-EC8C43E7DA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2E4FB91-4FDD-4966-B093-EC8C43E7DA4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C693F43B-6E53-48D2-A926-B64AA3F1CE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C693F43B-6E53-48D2-A926-B64AA3F1CE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C693F43B-6E53-48D2-A926-B64AA3F1CE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C693F43B-6E53-48D2-A926-B64AA3F1CE5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{697DA19E-5DD2-49F7-858D-6257FB08E25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{697DA19E-5DD2-49F7-858D-6257FB08E25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{697DA19E-5DD2-49F7-858D-6257FB08E25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{697DA19E-5DD2-49F7-858D-6257FB08E25F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
