@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ToniAuto2003.Data;
+using ToniAuto2003.Infrastructure.Data;
 
 #nullable disable
 
-namespace ToniAuto2003.Data.Migrations
+namespace ToniAuto2003.Infrastructure.Migrations
 {
     [DbContext(typeof(ToniAutoDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240413173329_initialwithData")]
+    partial class initialwithData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,35 +143,35 @@ namespace ToniAuto2003.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "eeccf76a-32e8-43a4-9241-72d2f0a6d6d7",
-                            Email = "agent@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "agent@mail.com",
-                            NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO5MQuh+39Fct8CYeHHtwXq/m9EVj9a4oBdXMpqIHm7OxERxyIWRy9QOBXY/lDGJ8A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc998d2c-8459-4516-976e-3d3a9656d5f0",
-                            TwoFactorEnabled = false,
-                            UserName = "agent@mail.com"
-                        },
-                        new
-                        {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5ea5283e-36f5-4564-88e4-3eeb9d5263b8",
+                            ConcurrencyStamp = "5f50595c-f347-4d06-88f1-f51250aa6ba1",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIWUXc7yOvw7w1GLjovOmqEYRjN9DE2wkFyHhuUzUaOL5Ui6olzIw+njDN14btcSww==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHA8BVDvrRic7/OS1PEjOoJtdEpOuk9Wd8SLtHVSCpHo5wdRrGlXL5Ib7mCHFJh0Lg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b6769cd0-d943-4a1b-93e2-8072520faba4",
+                            SecurityStamp = "1a471e34-ef44-4932-a5b2-dfec5fb4718a",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
+                        },
+                        new
+                        {
+                            Id = "dea12856-c198-4129-b3f3-b893d8395082",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b13c38fb-0b2a-46f4-a56f-67fed6ab11c9",
+                            Email = "agent@mail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "agent@mail.com",
+                            NormalizedUserName = "agent@mail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ/COKazvcdOy/8GFS/UMHG3NfnZLz8kIhvjEzXtsEkKtCBsv2Mo74R9FnpX4S4dJQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e5765b63-b014-4772-9b6a-aa871271eb6c",
+                            TwoFactorEnabled = false,
+                            UserName = "agent@mail.com"
                         });
                 });
 
@@ -258,7 +260,7 @@ namespace ToniAuto2003.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.Car", b =>
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Agent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -266,7 +268,42 @@ namespace ToniAuto2003.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("CatalogueId")
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Agents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PhoneNumber = "+359888888888",
+                            UserId = "dea12856-c198-4129-b3f3-b893d8395082"
+                        });
+                });
+
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Car", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AgentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AgentId1")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
@@ -290,19 +327,21 @@ namespace ToniAuto2003.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("RenterId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CatalogueId");
+                    b.HasIndex("AgentId");
+
+                    b.HasIndex("AgentId1");
 
                     b.HasIndex("CategoryId");
 
@@ -310,35 +349,51 @@ namespace ToniAuto2003.Data.Migrations
 
                     b.HasIndex("LeasingId");
 
-                    b.HasIndex("OwnerId");
-
                     b.ToTable("Cars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AgentId = 1,
+                            CategoryId = 4,
+                            ImageUrl = "https://unsplash.com/photos/gray-volkswagen-vehicle-on-road-E5QW_maORfg",
+                            LeasingId = 1,
+                            Make = "Volkswagen",
+                            Model = "Golf 5",
+                            Price = 5000m,
+                            RenterId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
+                            Year = 2006
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AgentId = 1,
+                            CategoryId = 7,
+                            ImageUrl = "https://unsplash.com/photos/cars-on-road-during-daytime-sxnG1u0NCs4",
+                            LeasingId = 1,
+                            Make = "Volkswagen",
+                            Model = "Touran",
+                            Price = 8000m,
+                            RenterId = "",
+                            Year = 2008
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AgentId = 1,
+                            CategoryId = 7,
+                            ImageUrl = "https://unsplash.com/photos/a-car-parked-in-the-middle-of-a-parking-lot-5BNfCStM3Ko",
+                            LeasingId = 1,
+                            Make = "Toyota",
+                            Model = "Tundra",
+                            Price = 6000m,
+                            RenterId = "",
+                            Year = 2006
+                        });
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.Catalogue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Catalogues");
-                });
-
-            modelBuilder.Entity("ToniAuto2003.Data.Category", b =>
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -359,46 +414,46 @@ namespace ToniAuto2003.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "HatchBack cars"
+                            Name = "HatchBack"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Liftback cars"
+                            Name = "Liftback"
                         },
                         new
                         {
                             Id = 3,
-                            Name = " StationWagon cars"
+                            Name = " StationWagon"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "CoupeCategory cars"
+                            Name = "Coupe"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "ConvertibleCategory cars"
+                            Name = "Convertible"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "LimousineCategory cars"
+                            Name = "Limousine"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "SUVCategory cars"
+                            Name = "SUV"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "CUVCategory cars"
+                            Name = "CUV"
                         });
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.Clients", b =>
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Clients", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -420,7 +475,7 @@ namespace ToniAuto2003.Data.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.Leasing", b =>
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Leasing", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -437,6 +492,14 @@ namespace ToniAuto2003.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Leasings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AmounthPerMonth = 500m,
+                            Months = 12
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -490,53 +553,7 @@ namespace ToniAuto2003.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.Car", b =>
-                {
-                    b.HasOne("ToniAuto2003.Data.Catalogue", null)
-                        .WithMany("Cars")
-                        .HasForeignKey("CatalogueId");
-
-                    b.HasOne("ToniAuto2003.Data.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ToniAuto2003.Data.Clients", null)
-                        .WithMany("Cars")
-                        .HasForeignKey("ClientsId");
-
-                    b.HasOne("ToniAuto2003.Data.Leasing", "Leasing")
-                        .WithMany()
-                        .HasForeignKey("LeasingId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Leasing");
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("ToniAuto2003.Data.Catalogue", b =>
-                {
-                    b.HasOne("ToniAuto2003.Data.Category", "Category")
-                        .WithMany("Catalogues")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("ToniAuto2003.Data.Clients", b =>
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Agent", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -547,17 +564,58 @@ namespace ToniAuto2003.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.Catalogue", b =>
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Car", b =>
+                {
+                    b.HasOne("ToniAuto2003.Infrastructure.Data.Agent", "Agent")
+                        .WithMany()
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ToniAuto2003.Infrastructure.Data.Agent", null)
+                        .WithMany("Cars")
+                        .HasForeignKey("AgentId1");
+
+                    b.HasOne("ToniAuto2003.Infrastructure.Data.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ToniAuto2003.Infrastructure.Data.Clients", null)
+                        .WithMany("Cars")
+                        .HasForeignKey("ClientsId");
+
+                    b.HasOne("ToniAuto2003.Infrastructure.Data.Leasing", "Leasing")
+                        .WithMany()
+                        .HasForeignKey("LeasingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Agent");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Leasing");
+                });
+
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Clients", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Agent", b =>
                 {
                     b.Navigation("Cars");
                 });
 
-            modelBuilder.Entity("ToniAuto2003.Data.Category", b =>
-                {
-                    b.Navigation("Catalogues");
-                });
-
-            modelBuilder.Entity("ToniAuto2003.Data.Clients", b =>
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Clients", b =>
                 {
                     b.Navigation("Cars");
                 });

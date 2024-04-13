@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ToniAuto2003.Data;
+using ToniAuto2003.Infrastructure.Data;
 
 namespace HouseRentingSystem.Infrastructure.Data.Common
 {

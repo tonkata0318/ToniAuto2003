@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static ToniAuto2003.Data.DataConstraints;
+using static ToniAuto2003.Infrastructure.Constants.DataConstraints;
 
-namespace ToniAuto2003.Data
+namespace ToniAuto2003.Infrastructure.Data
 {
     public class Clients
     {
@@ -16,6 +16,7 @@ namespace ToniAuto2003.Data
         public IdentityUser User { get; set; } = null!;
 
         [Required]
+        //[Range(typeof(decimal),clientmoneyMin,clientmoneyMax,ConvertValueInInvariantCulture =true)]
         public decimal Money { get; set; }
 
         public ICollection<Car> Cars { get; set; } = new List<Car>();

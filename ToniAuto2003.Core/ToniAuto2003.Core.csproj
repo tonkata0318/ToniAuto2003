@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ToniAuto2003.Infrastructure\ToniAuto2003.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

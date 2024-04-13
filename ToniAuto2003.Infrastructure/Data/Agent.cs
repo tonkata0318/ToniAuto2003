@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using static ToniAuto2003.Data.DataConstraints;
+using static ToniAuto2003.Infrastructure.Constants.DataConstraints;
 
-namespace ToniAuto2003.Data
+namespace ToniAuto2003.Infrastructure.Data
 {
     public class Agent
     {
@@ -18,5 +18,7 @@ namespace ToniAuto2003.Data
 
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; } = null!;
+
+        public  List<Car> Cars { get; set; } = new List<Car>();
     }
 }

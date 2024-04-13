@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ToniAuto2003.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ToniAuto2003.Data;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

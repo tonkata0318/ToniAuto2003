@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Composition.Convention;
+using static ToniAuto2003.Infrastructure.Constants.DataConstraints;
 
-namespace ToniAuto2003.Data
+namespace ToniAuto2003.Infrastructure.Data
 {
     public class Car
     {
@@ -19,6 +19,8 @@ namespace ToniAuto2003.Data
         public string Model { get; set; } = string.Empty;
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        //[Range(typeof(decimal), carsMinimalPrice , carsMinimalPrice , ConvertValueInInvariantCulture = true)]
         public decimal Price { get; set; }
 
         [Required]
@@ -29,13 +31,15 @@ namespace ToniAuto2003.Data
         public Category Category { get; set; } = null!;
 
         [Required]
-        public string OwnerId { get; set; } = null!;
+        public int AgentId { get; set; }
 
-        [ForeignKey(nameof(OwnerId))]
-        public IdentityUser Owner { get; set; } = null!;
+        [ForeignKey(nameof(AgentId))]
+        public Agent Agent { get; set; } = null!;
 
         [Required]
         public string ImageUrl { get; set; } = string.Empty;
+
+        public string RenterId { get; set; } = string.Empty;
 
         [Required]
         public int LeasingId { get; set; }

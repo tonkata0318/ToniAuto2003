@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ToniAuto2003.Data
+namespace ToniAuto2003.Infrastructure.Data
 {
     public class Leasing
     {
