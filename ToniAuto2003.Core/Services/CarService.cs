@@ -15,7 +15,7 @@ namespace ToniAuto2003.Core.Services
             repository = _repository;
         }
 
-        public async Task<IEnumerable<CarIndexServiceModel>> LastThreeCars()
+        public async Task<IEnumerable<CarIndexServiceModel>> LastThreeCarsAsync()
         {
             return await repository
                 .AllReadOnly<Car>()

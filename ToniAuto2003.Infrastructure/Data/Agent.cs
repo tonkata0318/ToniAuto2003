@@ -2,9 +2,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using static ToniAuto2003.Infrastructure.Constants.DataConstraints;
+using Microsoft.EntityFrameworkCore;
 
 namespace ToniAuto2003.Infrastructure.Data
 {
+    [Index(nameof(PhoneNumber),IsUnique = true)]
     public class Agent
     {
         public int Id { get; set; }

@@ -4,6 +4,6 @@ namespace ToniAuto2003.Core.Contracts
 {
     public interface ICarService
     {
-        Task<IEnumerable<CarIndexServiceModel>> LastThreeCars();
+        Task<IEnumerable<CarIndexServiceModel>> LastThreeCarsAsync();
     }
 }

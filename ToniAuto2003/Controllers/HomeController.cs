@@ -24,7 +24,7 @@ namespace ToniAuto2003.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var model = await carService.LastThreeCars();
+            var model = await carService.LastThreeCarsAsync();
             return View(model);
         }
 

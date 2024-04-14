@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Models.Agent;
+using ToniAuto2003.Extensions;
 
 namespace ToniAuto2003.Controllers
 {
@@ -17,6 +18,16 @@ namespace ToniAuto2003.Controllers
         [HttpGet]
         public async Task<IActionResult> Become()
         {
+            if (await agentService.ExistByIdAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
+            if (await agentService.ExistAsClientAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
             var model=new BecomeAgentFormModel();
             return View(model);
         }
