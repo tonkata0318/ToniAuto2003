@@ -6,13 +6,12 @@ using ToniAuto2003.Core.Models.Car;
 
 namespace ToniAuto2003.Controllers
 {
-    [Authorize]
-    public class CarController : Controller
+    public class CarController : BaseController
     {
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All()
-        {
+        {   
             var model = new AllCarsQueryModel();
             return View(model);
         }

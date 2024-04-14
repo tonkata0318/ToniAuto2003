@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Models.Home;
@@ -6,7 +7,7 @@ using ToniAuto2003.Models;
 
 namespace ToniAuto2003.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICarService carService;
@@ -20,12 +21,14 @@ namespace ToniAuto2003.Controllers
             carService= _carService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var model = await carService.LastThreeCars();
             return View(model);
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

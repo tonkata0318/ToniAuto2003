@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Models.Agent;
 
 namespace ToniAuto2003.Controllers
 {
-    [Authorize]
-    public class AgentController : Controller
+    public class AgentController : BaseController
     {
+        private readonly IAgentService agentService;
+
+        public AgentController(IAgentService _agentService)
+        {
+            agentService = _agentService;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Become()
         {
