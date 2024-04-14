@@ -1,18 +1,11 @@
-﻿@{
+﻿@model IndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-@if (User.Identity.IsAuthenticated)
-{
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <h2>To the best Car Dealership in Bulgaria!</h2>
-    </div>
-}
-else
-{
+
     <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-}
+

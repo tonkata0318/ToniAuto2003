@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ToniAuto2003.Core.Models.Home;
 using ToniAuto2003.Models;
 
 namespace ToniAuto2003.Controllers
@@ -15,7 +16,8 @@ namespace ToniAuto2003.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
