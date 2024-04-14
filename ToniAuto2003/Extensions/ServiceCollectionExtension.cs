@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HouseRentingSystem.Infrastructure.Data.Common;
-using ToniAuto2003.Core.Contracts.Car;
-using ToniAuto2003.Core.Services.Car;
+using ToniAuto2003.Core.Services;
+using ToniAuto2003.Core.Contracts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

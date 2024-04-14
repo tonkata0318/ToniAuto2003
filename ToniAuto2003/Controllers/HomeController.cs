@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using ToniAuto2003.Core.Contracts.Car;
+using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Models.Home;
 using ToniAuto2003.Models;
 
