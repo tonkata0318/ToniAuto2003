@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ToniAuto2003.Attributes;
 using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Models.Agent;
 using ToniAuto2003.Extensions;
+using static ToniAuto2003.Core.Constants.MessageConstants;
 
 namespace ToniAuto2003.Controllers
 {
@@ -16,13 +18,9 @@ namespace ToniAuto2003.Controllers
         }
 
         [HttpGet]
+        [NotAnAgent]
         public async Task<IActionResult> Become()
         {
-            if (await agentService.ExistByIdAsync(User.Id()))
-            {
-                return BadRequest();
-            }
-
             if (await agentService.ExistAsClientAsync(User.Id()))
             {
                 return BadRequest();
@@ -33,8 +31,31 @@ namespace ToniAuto2003.Controllers
         }
 
         [HttpPost]
+        [NotAnAgent]
         public async Task<IActionResult> Become(BecomeAgentFormModel model)
         {
+            if (await agentService.ExistAsClientAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
+            if (await agentService.UserWithPhoneNumberExistsAsync(model.PhoneNumber)) 
+            {
+                ModelState.AddModelError(nameof(model.PhoneNumber), PhoneExists);
+            }
+
+            if (await agentService.UserHasCarsBuyedAsync(User.Id()))
+            {
+                ModelState.AddModelError("Error", HasCars);
+            }
+
+            if (ModelState.IsValid==false)
+            {
+                return View(model);
+            }
+
+            await agentService.CreateAsync(User.Id(),model.PhoneNumber);
+
             return RedirectToAction(nameof(CarController.All), "Car");
         }
     }

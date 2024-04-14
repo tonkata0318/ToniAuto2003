@@ -10,6 +10,6 @@ namespace ToniAuto2003.Core.Models.Agent
         [StringLength(phonenumberMaxLength,MinimumLength =phoneNumberMinLength , ErrorMessage = LengthMessage)]
         [Display(Name = "Phone number")]
         [Phone]
-        public string Phonenumber { get; set; } = null!;
+        public string PhoneNumber { get; set; } = null!;
     }
 }
