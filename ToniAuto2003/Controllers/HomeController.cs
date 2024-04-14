@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ToniAuto2003.Core.Contracts.Car;
 using ToniAuto2003.Core.Models.Home;
 using ToniAuto2003.Models;
 
@@ -8,15 +9,20 @@ namespace ToniAuto2003.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICarService carService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            ICarService _carService
+            )
         {
             _logger = logger;
+            carService= _carService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = new IndexViewModel();
+            var model = await carService.LastThreeCars();
             return View(model);
         }
 

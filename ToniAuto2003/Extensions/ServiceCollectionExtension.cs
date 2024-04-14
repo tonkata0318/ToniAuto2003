@@ -1,6 +1,9 @@
 ﻿using ToniAuto2003.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using HouseRentingSystem.Infrastructure.Data.Common;
+using ToniAuto2003.Core.Contracts.Car;
+using ToniAuto2003.Core.Services.Car;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -8,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<ICarService, CarService>();
+
             return services;
         }
 
@@ -17,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<ToniAutoDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-
+            services.AddScoped<IRepository, Repository>();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             return services;
