@@ -14,9 +14,15 @@ namespace ToniAuto2003.Core.Services
             repository = _repository;
         }
 
-        public Task CreateAsync(string userId, string phoneNumber)
+        public async Task CreateAsync(string userId, string phoneNumber)
         {
-            throw new NotImplementedException();
+            await repository.AddAsync(new Agent()
+            { 
+                UserId= userId,
+                PhoneNumber= phoneNumber
+            });
+
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistAsClientAsync(string userId)
@@ -31,14 +37,18 @@ namespace ToniAuto2003.Core.Services
                 .AnyAsync(a => a.UserId == userId);
         }
 
-        public Task<bool> UserHasCarsBuyedAsync(string userId)
+        public async Task<bool> UserHasCarsBuyedAsync(string userId)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Car>()
+                .AnyAsync(c => c.RenterId == userId);
+
         }
 
-        public Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber)
+        public async Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Agent>()
+                .AnyAsync(a=>a.PhoneNumber== phoneNumber);
+                
         }
     }
 }
