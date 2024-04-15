@@ -12,7 +12,7 @@
         public const string carsMinimalPrice = "3000.00";
         public const string carsMaximumPrice = "150000.00";
 
-        public const string clientmoneyMin ="5000.00";
-        public const string clientmoneyMax = "250000.00";
+        public const double clientmoneyMin =5000;
+        public const double clientmoneyMax = 250000;
     }
 }

@@ -17,7 +17,7 @@ namespace ToniAuto2003.Infrastructure.Data
 
         [Required]
         //[Range(typeof(decimal),clientmoneyMin,clientmoneyMax,ConvertValueInInvariantCulture =true)]
-        public decimal Money { get; set; }
+        public double Money { get; set; }
 
         public ICollection<Car> Cars { get; set; } = new List<Car>();
     }

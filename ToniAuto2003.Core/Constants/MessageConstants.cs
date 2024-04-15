@@ -8,7 +8,7 @@
 
         public const string PhoneExists = "The phone number already exists. Enter another one";
 
-
+        public const string MoneyRequired = "The field {0} must be between {1} and {2} in order to start shopping";
         public const string HasCars = "You shoud have no car to become Agent";
 
 
