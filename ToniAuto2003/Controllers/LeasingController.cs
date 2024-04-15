@@ -15,14 +15,6 @@ namespace ToniAuto2003.Controllers
             var model = new AllLeasingQueryModel();
             return View(model);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Mine()
-        {
-            var model = new AllLeasingQueryModel();
-            return View(model);
-        }
-
         [HttpGet]
         public async Task<IActionResult> Details()
         {
