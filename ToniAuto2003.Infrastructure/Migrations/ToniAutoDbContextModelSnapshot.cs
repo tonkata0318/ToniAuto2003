@@ -143,15 +143,15 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2aaba7cb-497c-41d4-abe0-c583dc92ab86",
+                            ConcurrencyStamp = "5f50595c-f347-4d06-88f1-f51250aa6ba1",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI65KOKmAUkWuQbR4WagY+dMBzzxiWWfNMBZzIGWtZby9muEijzb8iB0I5LWYNWb8w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHA8BVDvrRic7/OS1PEjOoJtdEpOuk9Wd8SLtHVSCpHo5wdRrGlXL5Ib7mCHFJh0Lg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "14d679de-7ca9-41fd-939d-0a1519eddb2c",
+                            SecurityStamp = "1a471e34-ef44-4932-a5b2-dfec5fb4718a",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -159,15 +159,15 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a191f468-8a6e-48ef-af0e-16c549657764",
+                            ConcurrencyStamp = "b13c38fb-0b2a-46f4-a56f-67fed6ab11c9",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENd4WiqjXATvAbjZ2owMpr8niRQBdTTq/dNGNQ1uoWWx/1iMKwURGs4Q/+qxdqMTpQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ/COKazvcdOy/8GFS/UMHG3NfnZLz8kIhvjEzXtsEkKtCBsv2Mo74R9FnpX4S4dJQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b8638a8-316a-4dc5-a5cb-ef5d733bb3f7",
+                            SecurityStamp = "e5765b63-b014-4772-9b6a-aa871271eb6c",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         });
@@ -277,9 +277,6 @@ namespace ToniAuto2003.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhoneNumber")
-                        .IsUnique();
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Agents");
@@ -358,7 +355,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                             Id = 1,
                             AgentId = 1,
                             CategoryId = 4,
-                            ImageUrl = "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/volkswagen-golf-plus-5.jpg?itok=egdDOy3x",
+                            ImageUrl = "https://unsplash.com/photos/gray-volkswagen-vehicle-on-road-E5QW_maORfg",
                             LeasingId = 1,
                             Make = "Volkswagen",
                             Model = "Golf 5",
@@ -371,7 +368,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                             Id = 2,
                             AgentId = 1,
                             CategoryId = 7,
-                            ImageUrl = "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/volkswagen-touran-6.jpg?itok=tQyjcZ5M",
+                            ImageUrl = "https://unsplash.com/photos/cars-on-road-during-daytime-sxnG1u0NCs4",
                             LeasingId = 1,
                             Make = "Volkswagen",
                             Model = "Touran",
@@ -384,7 +381,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                             Id = 3,
                             AgentId = 1,
                             CategoryId = 7,
-                            ImageUrl = "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/toyota-rav-4-rt-34pan_0.jpg?itok=NJ4NDGzY",
+                            ImageUrl = "https://unsplash.com/photos/a-car-parked-in-the-middle-of-a-parking-lot-5BNfCStM3Ko",
                             LeasingId = 1,
                             Make = "Toyota",
                             Model = "Tundra",
@@ -462,8 +459,8 @@ namespace ToniAuto2003.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("Money")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Money")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -490,10 +487,6 @@ namespace ToniAuto2003.Infrastructure.Migrations
                     b.Property<int>("Months")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Leasings");
@@ -503,8 +496,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         {
                             Id = 1,
                             AmounthPerMonth = 500m,
-                            Months = 12,
-                            Name = "One Year Leasing"
+                            Months = 12
                         });
                 });
 

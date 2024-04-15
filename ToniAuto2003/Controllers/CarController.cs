@@ -1,26 +1,13 @@
-﻿using HouseRentingSystem.Attributes;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
 using System.Runtime.CompilerServices;
-using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Models.Car;
-using ToniAuto2003.Extensions;
-using ToniAuto2003.Infrastructure.Data;
 
 namespace ToniAuto2003.Controllers
 {
     public class CarController : BaseController
     {
-        private readonly ICarService carService;
-        private readonly IAgentService agentService;
-
-        public CarController(ICarService _carService,IAgentService _agentService)
-        {
-            carService = _carService;
-            agentService = _agentService;
-        }
-
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All()
@@ -44,45 +31,15 @@ namespace ToniAuto2003.Controllers
         }
 
         [HttpGet]
-        [MustBeAgent]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
-
-            var model = new CarFormModel()
-            {
-                Categories = await carService.AllCategoriesAsync(),
-                Leasings = await carService.AllLeasingsAsync()
-            };
-            return View(model);
+            return View();
         }
 
         [HttpPost]
-        [MustBeAgent]
-        public async Task<IActionResult> Add(CarFormModel car)
+        public async Task<IActionResult> Add(CarFormModel model)
         {
-            if (await carService.CategoryExistsAsync(car.CategoryId)==false)
-            {
-                ModelState.AddModelError(nameof(car.CategoryId), "");
-            }
-
-            if (await carService.LeasingExistsAsync(car.LeasingId) == false)
-            {
-                ModelState.AddModelError(nameof(car.LeasingId), "");
-            }
-
-            if (ModelState.IsValid==false)
-            {
-                car.Categories = await carService.AllCategoriesAsync();
-                car.Leasings = await carService.AllLeasingsAsync();
-
-                return View(car);
-            }
-
-            int? agentId=await agentService.GetAgentIdAsync(User.Id());
-
-            int newCarId = await carService.CreateAsync(car, agentId ?? 0);
-
-            return RedirectToAction(nameof(Details), new { id=newCarId });
+            return RedirectToAction(nameof(Details), new { id=1 });
         }
 
         [HttpGet]

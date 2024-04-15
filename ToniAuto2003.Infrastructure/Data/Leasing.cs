@@ -7,9 +7,6 @@ namespace ToniAuto2003.Infrastructure.Data
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
         public decimal AmounthPerMonth { get; set; }
 
         [Required]

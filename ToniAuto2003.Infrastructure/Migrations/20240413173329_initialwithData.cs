@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ToniAuto2003.Infrastructure.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialwithData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,7 +67,6 @@ namespace ToniAuto2003.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AmounthPerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Months = table.Column<int>(type: "int", nullable: false)
                 },
@@ -209,7 +208,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Money = table.Column<double>(type: "float", nullable: false)
+                    Money = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -278,8 +277,8 @@ namespace ToniAuto2003.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "2aaba7cb-497c-41d4-abe0-c583dc92ab86", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEI65KOKmAUkWuQbR4WagY+dMBzzxiWWfNMBZzIGWtZby9muEijzb8iB0I5LWYNWb8w==", null, false, "14d679de-7ca9-41fd-939d-0a1519eddb2c", false, "guest@mail.com" },
-                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "a191f468-8a6e-48ef-af0e-16c549657764", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAENd4WiqjXATvAbjZ2owMpr8niRQBdTTq/dNGNQ1uoWWx/1iMKwURGs4Q/+qxdqMTpQ==", null, false, "2b8638a8-316a-4dc5-a5cb-ef5d733bb3f7", false, "agent@mail.com" }
+                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "5f50595c-f347-4d06-88f1-f51250aa6ba1", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEHA8BVDvrRic7/OS1PEjOoJtdEpOuk9Wd8SLtHVSCpHo5wdRrGlXL5Ib7mCHFJh0Lg==", null, false, "1a471e34-ef44-4932-a5b2-dfec5fb4718a", false, "guest@mail.com" },
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "b13c38fb-0b2a-46f4-a56f-67fed6ab11c9", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEJ/COKazvcdOy/8GFS/UMHG3NfnZLz8kIhvjEzXtsEkKtCBsv2Mo74R9FnpX4S4dJQ==", null, false, "e5765b63-b014-4772-9b6a-aa871271eb6c", false, "agent@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -299,8 +298,8 @@ namespace ToniAuto2003.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Leasings",
-                columns: new[] { "Id", "AmounthPerMonth", "Months", "Name" },
-                values: new object[] { 1, 500m, 12, "One Year Leasing" });
+                columns: new[] { "Id", "AmounthPerMonth", "Months" },
+                values: new object[] { 1, 500m, 12 });
 
             migrationBuilder.InsertData(
                 table: "Agents",
@@ -310,23 +309,17 @@ namespace ToniAuto2003.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Cars",
                 columns: new[] { "Id", "AgentId", "AgentId1", "CategoryId", "ClientsId", "ImageUrl", "LeasingId", "Make", "Model", "Price", "RenterId", "Year" },
-                values: new object[] { 1, 1, null, 4, null, "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/volkswagen-golf-plus-5.jpg?itok=egdDOy3x", 1, "Volkswagen", "Golf 5", 5000m, "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 2006 });
+                values: new object[] { 1, 1, null, 4, null, "https://unsplash.com/photos/gray-volkswagen-vehicle-on-road-E5QW_maORfg", 1, "Volkswagen", "Golf 5", 5000m, "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 2006 });
 
             migrationBuilder.InsertData(
                 table: "Cars",
                 columns: new[] { "Id", "AgentId", "AgentId1", "CategoryId", "ClientsId", "ImageUrl", "LeasingId", "Make", "Model", "Price", "RenterId", "Year" },
-                values: new object[] { 2, 1, null, 7, null, "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/volkswagen-touran-6.jpg?itok=tQyjcZ5M", 1, "Volkswagen", "Touran", 8000m, "", 2008 });
+                values: new object[] { 2, 1, null, 7, null, "https://unsplash.com/photos/cars-on-road-during-daytime-sxnG1u0NCs4", 1, "Volkswagen", "Touran", 8000m, "", 2008 });
 
             migrationBuilder.InsertData(
                 table: "Cars",
                 columns: new[] { "Id", "AgentId", "AgentId1", "CategoryId", "ClientsId", "ImageUrl", "LeasingId", "Make", "Model", "Price", "RenterId", "Year" },
-                values: new object[] { 3, 1, null, 7, null, "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/toyota-rav-4-rt-34pan_0.jpg?itok=NJ4NDGzY", 1, "Toyota", "Tundra", 6000m, "", 2006 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agents_PhoneNumber",
-                table: "Agents",
-                column: "PhoneNumber",
-                unique: true);
+                values: new object[] { 3, 1, null, 7, null, "https://unsplash.com/photos/a-car-parked-in-the-middle-of-a-parking-lot-5BNfCStM3Ko", 1, "Toyota", "Tundra", 6000m, "", 2006 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Agents_UserId",

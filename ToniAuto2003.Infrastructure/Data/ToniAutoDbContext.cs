@@ -198,7 +198,6 @@ namespace ToniAuto2003.Infrastructure.Data
             OneYearLeasing = new Leasing()
             {
                 Id = 1,
-                Name = "One Year Leasing",
                 AmounthPerMonth = 500,
                 Months = 12
             };
