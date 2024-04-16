@@ -1,9 +1,14 @@
+using ToniAuto2003.ModelBinders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddApplicationIdentity(builder.Configuration);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(option =>
+{
+    option.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+});
 
 builder.Services.AddApplicationServices();
 

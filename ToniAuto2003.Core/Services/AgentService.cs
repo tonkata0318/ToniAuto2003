@@ -50,5 +50,12 @@ namespace ToniAuto2003.Core.Services
                 .AnyAsync(a=>a.PhoneNumber== phoneNumber);
                 
         }
+
+        public async Task<int?> GetAgentIdAsync(string userId)
+        {
+            return (await repository.AllReadOnly<Agent>()
+                .FirstOrDefaultAsync(a => a.UserId == userId))?.Id;
+
+        }
     }
 }

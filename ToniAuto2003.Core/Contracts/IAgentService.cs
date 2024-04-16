@@ -10,6 +10,8 @@
 
         Task<bool> UserHasCarsBuyedAsync(string userId);
 
+        Task<int?> GetAgentIdAsync(string userId);
+
         Task CreateAsync(string userId,string phoneNumber);
     }
 }
