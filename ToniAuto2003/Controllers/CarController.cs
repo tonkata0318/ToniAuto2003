@@ -58,7 +58,6 @@ namespace ToniAuto2003.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CarFormModel car)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
             if (await carService.CategoryExistsAsync(car.CategoryId) == false)
             {
                 ModelState.AddModelError(nameof(car.CategoryId), "");

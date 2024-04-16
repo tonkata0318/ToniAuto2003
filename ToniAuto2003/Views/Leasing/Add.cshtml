@@ -3,7 +3,30 @@
     ViewData["Title"] = "Add Leasing";
 }
 
-<partial name="_CarFormPartialView" model="@Model" />
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Year...">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AmounthPerMonth"></label>
+                <input asp-for="AmounthPerMonth" class="form-control">
+                <span asp-validation-for="AmounthPerMonth" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Months"></label>
+                <input asp-for="Months" class="form-control">
+                <span asp-validation-for="Months" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
