@@ -14,11 +14,13 @@ namespace ToniAuto2003.Controllers
 
         private readonly ICarService carService;
         private readonly IAgentService agentService;
+        private readonly IClientService clientService;
 
-        public CarController(ICarService _carService, IAgentService _agentService)
+        public CarController(ICarService _carService, IAgentService _agentService, IClientService _clientservice)
         {
             carService = _carService;
             agentService = _agentService;
+            clientService = _clientservice;
         }
 
         [AllowAnonymous]
@@ -41,14 +43,38 @@ namespace ToniAuto2003.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            var model = new AllCarsQueryModel();
+            var userId = User.Id();
+            IEnumerable<CarServiceModel> model;
+
+            if (await agentService.ExistByIdAsync(userId))
+            {
+                int agentId = await agentService.GetAgentIdAsync(userId) ?? 0;
+
+                model = await carService.AllCarsByAgentIdAsync(agentId);
+            }
+            else
+            {
+                if (await clientService.ExistByIdAsync(userId))
+                {
+                    model = await carService.AllCarsByUserIdAsync(userId);
+                }
+                else
+                {
+                    return RedirectToAction("Index","Home");
+                }
+            }
             return View(model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(int id)
         {
-            var model = new CarDetailsViewModel();
+            if (await carService.ExistsAsync(id)==false)
+            {
+                return BadRequest();
+            }
+            var model = await carService.CarDetailsByIdAsync(id);
+
             return View(model);
         }
 

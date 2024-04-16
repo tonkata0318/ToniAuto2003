@@ -28,5 +28,13 @@ namespace ToniAuto2003.Core.Contracts
             int carsPerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
+
+        Task<IEnumerable<CarServiceModel>> AllCarsByAgentIdAsync(int agentId);
+
+        Task<IEnumerable<CarServiceModel>> AllCarsByUserIdAsync(string userId);
+
+        Task<bool> ExistsAsync(int id);
+
+        Task<CarDetailsServiceModel> CarDetailsByIdAsync(int id);
     }
 }

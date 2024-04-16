@@ -26,6 +26,6 @@ namespace ToniAuto2003.Core.Models.Car
         public decimal Price { get; set; }
 
         [Display(Name = "Is Buyed")]
-        public bool IsBuyed { get; set; } 
+        public bool IsBuyed { get; set; }
     }
 }

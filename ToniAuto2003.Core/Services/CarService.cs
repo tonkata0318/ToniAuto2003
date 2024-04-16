@@ -1,5 +1,6 @@
 ﻿using HouseRentingSystem.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Enumerations;
 using ToniAuto2003.Core.Models.Car;
@@ -121,16 +122,7 @@ namespace ToniAuto2003.Core.Services
             var cars = await carsToShow
                 .Skip((currentPage - 1) * carsPerPage)
                 .Take(carsPerPage)
-                .Select(c => new CarServiceModel()
-                { 
-                    Id = c.Id,
-                    Year = c.Year,
-                    Make = c.Make,
-                    Model = c.Model,
-                    ImageUrl = c.ImageUrl,
-                    Price = c.Price,
-                    IsBuyed=c.RenterId!=null
-                })
+                .ProjectToCarServiceModel()
                 .ToListAsync();
 
             int totalCars=await carsToShow.CountAsync();
@@ -150,5 +142,50 @@ namespace ToniAuto2003.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<CarServiceModel>> AllCarsByAgentIdAsync(int agentId)
+        {
+            return await repository.AllReadOnly<Car>()
+                .Where(c => c.AgentId == agentId)
+                .ProjectToCarServiceModel()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CarServiceModel>> AllCarsByUserIdAsync(string userId)
+        {
+            return await repository.AllReadOnly<Car>()
+                .Where(c => c.RenterId == userId)
+                .ProjectToCarServiceModel()
+                .ToListAsync();
+        }
+
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await repository.AllReadOnly<Car>()
+                .AnyAsync(c => c.Id == id);
+        }
+
+        public async Task<CarDetailsServiceModel> CarDetailsByIdAsync(int id)
+        {
+            return await repository.AllReadOnly<Car>()
+                .Where(c => c.Id == id)
+                .Select(c => new CarDetailsServiceModel()
+                {
+                    Id = c.Id,
+                    Year = c.Year,
+                    Agent = new Models.Agent.AgentServiceModel()
+                    {
+                        Email = c.Agent.User.Email,
+                        PhoneNumber = c.Agent.PhoneNumber
+                    },
+                    Category = c.Category.Name,
+                    Make = c.Make,
+                    Model = c.Model,
+                    ImageUrl = c.ImageUrl,
+                    IsBuyed = c.RenterId != "",
+                    Price = c.Price,
+                })
+                .FirstAsync();
+
+        }
     }
 }

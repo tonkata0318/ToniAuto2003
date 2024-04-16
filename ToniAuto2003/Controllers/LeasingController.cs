@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using ToniAuto2003.Attributes;
 using ToniAuto2003.Core.Contracts;
@@ -6,6 +7,7 @@ using ToniAuto2003.Core.Models.Car;
 using ToniAuto2003.Core.Models.Leasing;
 using ToniAuto2003.Core.Services;
 using ToniAuto2003.Extensions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ToniAuto2003.Controllers
 {
@@ -22,17 +24,17 @@ namespace ToniAuto2003.Controllers
         }
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllLeasingQueryModel query)
         {
-            var model = new AllLeasingQueryModel();
-            return View(model);
-        }
+            var model = await leasingService.AllAsync(
+                query.SearchTerm,
+                query.Sorting,
+                query.currentPage,
+                query.LeasingsPerpage);
 
-        [HttpGet]
-        public async Task<IActionResult> Details()
-        {
-            var model = new LeasingDetailsViewModel();
-            return View(model);
+            query.TotalLeasingsCount = model.TotalLeasingsCount;
+            query.Leasings = model.Leasings;
+            return View(query);
         }
 
         [HttpGet]
@@ -61,6 +63,12 @@ namespace ToniAuto2003.Controllers
             return RedirectToAction(nameof(Details), new { id = newLeasingId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = new LeasingFormModel();
+            return View(model);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)

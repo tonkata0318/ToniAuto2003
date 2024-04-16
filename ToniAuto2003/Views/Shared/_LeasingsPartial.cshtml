@@ -1,0 +1,21 @@
+﻿@model LeasingServiceModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <div class="card-body text-center">
+            <h4>@Model.Name</h4>
+            <h6>AmountPerMonth: <b>@Model.AmountPerMonth</b></h6>
+            <h6>Months: <b>@Model.Months</b></h6>
+            <a asp-controller="Leasing" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Details</a>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Leasing" asp-action="Edit" asp-route-id="@Model.Id"
+               class="btn btn-warning">Edit</a>
+                <a asp-controller="Leasing" asp-action="Delete" asp-route-id="@Model.Id"
+               class="btn btn-danger">Delete</a>
+                <p></p>
+            }
+        </div>
+    </div>
+</div>
