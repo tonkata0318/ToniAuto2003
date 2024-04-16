@@ -56,9 +56,9 @@ namespace ToniAuto2003.Controllers
 
             int? agentId = await agentService.GetAgentIdAsync(User.Id());
 
-            int newCarId = await leasingService.CreateAsync(car, agentId ?? 0);
+            int newLeasingId = await leasingService.CreateAsync(car, agentId ?? 0);
 
-            return RedirectToAction(nameof(Details), new { id = newCarId });
+            return RedirectToAction(nameof(Details), new { id = newLeasingId });
         }
 
 
