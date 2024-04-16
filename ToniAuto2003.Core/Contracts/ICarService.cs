@@ -2,6 +2,7 @@
 using ToniAuto2003.Core.Models.Car;
 using ToniAuto2003.Core.Models.Home;
 using ToniAuto2003.Infrastructure.Data;
+using ToniAuto2003.Core.Enumerations;
 
 namespace ToniAuto2003.Core.Contracts
 {
@@ -18,5 +19,14 @@ namespace ToniAuto2003.Core.Contracts
         Task<bool> LeasingExistsAsync(int leasingId);
 
         Task<int> CreateAsync(CarFormModel model, int agentId);
+
+        Task<CarQueryServiceModel> AllAsync(
+            string? category = null,
+            string? searchTerm = null,
+            CarsSorting sorting = CarsSorting.Newest,
+            int currentPage = 1,
+            int carsPerPage = 1);
+
+        Task<IEnumerable<string>> AllCategoriesNamesAsync();
     }
 }

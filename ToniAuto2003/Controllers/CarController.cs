@@ -23,10 +23,19 @@ namespace ToniAuto2003.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllCarsQueryModel query)
         {   
-            var model = new AllCarsQueryModel();
-            return View(model);
+            var model =await carService.AllAsync(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.currentPage,
+                query.CarsPerpage);
+
+            query.TotalCarsCount = model.totalCarsCount;
+            query.Cars = model.Cars;
+            query.Categories=await carService.AllCategoriesNamesAsync();
+            return View(query);
         }
 
         [HttpGet]

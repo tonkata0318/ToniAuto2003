@@ -39,7 +39,7 @@ namespace ToniAuto2003.Infrastructure.Data
         [Required]
         public string ImageUrl { get; set; } = string.Empty;
 
-        public string RenterId { get; set; } = string.Empty;
+        public string? RenterId { get; set; } = string.Empty;
 
         [Required]
         public int LeasingId { get; set; }
