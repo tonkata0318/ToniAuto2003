@@ -14,5 +14,8 @@ namespace ToniAuto2003.Core.Contracts
             int currentPage = 1,
             int leasingsperpage = 1);
 
+        Task<bool> ExistsAsync(int id);
+
+        Task<LeasingServiceModel> LeasingDetailsByIdAsync(int id);
     }
 }

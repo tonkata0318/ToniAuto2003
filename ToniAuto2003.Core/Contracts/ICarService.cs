@@ -3,6 +3,7 @@ using ToniAuto2003.Core.Models.Car;
 using ToniAuto2003.Core.Models.Home;
 using ToniAuto2003.Infrastructure.Data;
 using ToniAuto2003.Core.Enumerations;
+using System.Reflection;
 
 namespace ToniAuto2003.Core.Contracts
 {
@@ -36,5 +37,11 @@ namespace ToniAuto2003.Core.Contracts
         Task<bool> ExistsAsync(int id);
 
         Task<CarDetailsServiceModel> CarDetailsByIdAsync(int id);
+
+        Task EditAsync(int carId, CarFormModel model);
+
+        Task<bool> HasAgentWithIdAsync(int carId, string userId);
+
+        Task<CarFormModel?> GetCarFormModelByIdasync(int id);
     }
 }

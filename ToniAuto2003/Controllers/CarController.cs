@@ -6,6 +6,7 @@ using ToniAuto2003.Attributes;
 using ToniAuto2003.Core.Contracts;
 using ToniAuto2003.Core.Models.Car;
 using ToniAuto2003.Extensions;
+using ToniAuto2003.Infrastructure.Data;
 
 namespace ToniAuto2003.Controllers
 {
@@ -95,7 +96,7 @@ namespace ToniAuto2003.Controllers
         {
             if (await carService.CategoryExistsAsync(car.CategoryId) == false)
             {
-                ModelState.AddModelError(nameof(car.CategoryId), "");
+                ModelState.AddModelError(nameof(car.CategoryId), "Category does not exist");
             }
 
             if (await carService.LeasingExistsAsync(car.LeasingId) == false)
@@ -121,14 +122,48 @@ namespace ToniAuto2003.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model=new CarFormModel();
+            if (await carService.ExistsAsync(id)==false)
+            {
+                return BadRequest();
+            }
+
+            if (await carService.HasAgentWithIdAsync(id,User.Id())== false)
+            {
+                return Unauthorized();
+            }
+
+            var model=await carService.GetCarFormModelByIdasync(id);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id,CarFormModel model)
+        public async Task<IActionResult> Edit(int id, CarFormModel car)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await carService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if (await carService.CategoryExistsAsync(car.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(car.CategoryId), "Category does not exist");
+            }
+
+            if (ModelState.IsValid==false)
+            {
+               car.Categories=await carService.AllCategoriesAsync();
+                car.Leasings = await carService.AllLeasingsAsync();
+
+                return View(car);
+            }
+
+            await carService.EditAsync(id, car);
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
 

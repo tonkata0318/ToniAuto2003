@@ -187,5 +187,54 @@ namespace ToniAuto2003.Core.Services
                 .FirstAsync();
 
         }
+
+        public async Task EditAsync(int carId, CarFormModel model)
+        {
+            var car=await repository.GetByIdAsync<Car>(carId);
+
+            if (car!=null)
+            {
+                car.Year = model.Year;
+                car.Model=model.Model;
+                car.Make = model.Make;
+                car.CategoryId = model.CategoryId;
+                car.ImageUrl=model.ImageUrl;
+                car.LeasingId=model.LeasingId;
+                car.Price = model.Price;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> HasAgentWithIdAsync(int carId, string userId)
+        {
+            return await repository.AllReadOnly<Car>()
+                .AnyAsync(c=>c.Id==carId && c.Agent.UserId == userId);
+        }
+
+        public async Task<CarFormModel?> GetCarFormModelByIdasync(int id)
+        {
+            var car= await repository.AllReadOnly<Car>()
+                .Where(c => c.Id == id)
+                .Select(c=>new CarFormModel()
+                {
+                    Year = c.Year,
+                    Model = c.Model,
+                    Make = c.Make,
+                    ImageUrl = c.ImageUrl,
+                    CategoryId=c.CategoryId,
+                    LeasingId=c.LeasingId,
+                    Price=c.Price
+                }).FirstOrDefaultAsync();
+
+            if (car!=null)
+
+            {
+                car.Categories = await AllCategoriesAsync();
+                car.Leasings = await AllLeasingsAsync();
+            }
+
+            return car;
+        }
     }
 }

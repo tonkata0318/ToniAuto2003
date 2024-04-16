@@ -22,7 +22,7 @@
             </p>
             <p>@Model.Model</p>
             <p>Category: <b>@Model.Category</b></p>
-            <p><i>(@(Model.IsBuyed ? "Rented" : "Not Rented"))</i></p>
+            <p><i>(@(Model.IsBuyed ? "Buyed" : "Available"))</i></p>
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {

@@ -79,5 +79,26 @@ namespace ToniAuto2003.Core.Services
 
             return leasing.Id;
         }
+
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await repository.AllReadOnly<Leasing>()
+                .AnyAsync(l => l.Id == id);
+                
+        }
+
+        public async Task<LeasingServiceModel> LeasingDetailsByIdAsync(int id)
+        {
+            return await repository.AllReadOnly<Leasing>()
+                .Where(c => c.Id == id)
+                .Select(c => new LeasingServiceModel()
+                {
+                    Id= c.Id,
+                    Name=c.Name,
+                    AmountPerMonth=c.AmounthPerMonth,
+                    Months=c.Months
+                })
+                .FirstAsync();
+        }
     }
 }

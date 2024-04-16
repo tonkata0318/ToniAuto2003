@@ -66,8 +66,16 @@ namespace ToniAuto2003.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = new LeasingFormModel();
-            return View(model);
+            if (await leasingService.ExistsAsync(id)==false)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var model=await leasingService.LeasingDetailsByIdAsync(id);
+
+                return View(model);
+            }
         }
 
         [HttpGet]
