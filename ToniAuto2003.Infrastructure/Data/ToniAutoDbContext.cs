@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToniAuto2003.Infrastructure.Data
 {
-    public class ToniAutoDbContext : IdentityDbContext
+    public class ToniAutoDbContext : IdentityDbContext<ApplicationUser>
     {
         public ToniAutoDbContext(DbContextOptions<ToniAutoDbContext> options)
             : base(options)
@@ -37,7 +37,7 @@ namespace ToniAuto2003.Infrastructure.Data
                .OnDelete(DeleteBehavior.Restrict);
 
             SeedUsers();
-            builder.Entity<IdentityUser>()
+            builder.Entity<ApplicationUser>()
                .HasData(GuestUser, AgentUser);
 
             SeedAgent();
@@ -74,9 +74,9 @@ namespace ToniAuto2003.Infrastructure.Data
             base.OnModelCreating(builder);
         }
 
-        private IdentityUser GuestUser { get; set; } = null!;
+        private ApplicationUser GuestUser { get; set; } = null!;
 
-        private IdentityUser AgentUser { get; set; } = null!;
+        private ApplicationUser AgentUser { get; set; } = null!;
 
         private Agent Agent { get; set; } = null!;
 
@@ -119,9 +119,9 @@ namespace ToniAuto2003.Infrastructure.Data
 
         private void SeedUsers()
         {
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
-            AgentUser = new IdentityUser()
+            AgentUser = new ApplicationUser()
             {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
                 UserName = "agent@mail.com",
@@ -133,7 +133,7 @@ namespace ToniAuto2003.Infrastructure.Data
             AgentUser.PasswordHash =
                  hasher.HashPassword(AgentUser, "agent123");
 
-            GuestUser = new IdentityUser()
+            GuestUser = new ApplicationUser()
             {
                 Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                 UserName = "guest@mail.com",
@@ -143,7 +143,7 @@ namespace ToniAuto2003.Infrastructure.Data
             };
 
             GuestUser.PasswordHash =
-            hasher.HashPassword(AgentUser, "guest123");
+            hasher.HashPassword(GuestUser, "guest123");
         }
 
 

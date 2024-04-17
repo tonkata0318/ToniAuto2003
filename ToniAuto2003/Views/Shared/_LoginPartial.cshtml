@@ -1,20 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using ToniAuto2003.Infrastructure.Data;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @inject IAgentService agentService
 @inject IClientService clientService
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        @if (await agentService.ExistByIdAsync(User.Id()))
+        @if (await agentService.ExistByIdAsync(User.Id())==false)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Agent" asp-action="Become">Become Agent</a>
             </li>
         }
 
-        @if (await clientService.ExistByIdAsync(User.Id()))
+        @if (await clientService.ExistByIdAsync(User.Id())==false)
         {
             <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="StartShopping">Start Shopping</a>

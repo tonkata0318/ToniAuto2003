@@ -13,7 +13,7 @@ namespace ToniAuto2003.Infrastructure.Data
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
 
         [Required]
         //[Range(typeof(decimal),clientmoneyMin,clientmoneyMax,ConvertValueInInvariantCulture =true)]
