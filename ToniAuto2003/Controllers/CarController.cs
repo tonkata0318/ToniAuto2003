@@ -215,12 +215,53 @@ namespace ToniAuto2003.Controllers
         [HttpPost]
         public async Task<IActionResult> Buy(int id)
         {
-            return RedirectToAction(nameof(Mine));
+            if (await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await agentService.ExistByIdAsync(User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            if (await carService.IsBuyedAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var client = await clientService.GetClientFormModelById(User.Id());
+            var car = carService.GetCarFormModelByIdasync(id);
+            if (client.Money>=((double)car.Result.Price))
+            {
+                await carService.BuyAsync(id, User.Id());
+                await clientService.BuyAsync(client.Id, ((double)car.Result.Price));
+
+                return RedirectToAction(nameof(All));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Sell(int id)
         {
-            return RedirectToAction(nameof(Mine));
+            if (await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await carService.IsBuyedByUserWithIdAsync(id,User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+            var client = await clientService.GetClientFormModelById(User.Id());
+            var car = carService.GetCarFormModelByIdasync(id);
+            await carService.SellAsync(id);
+            await clientService.SellAsync(client.Id, ((double)car.Result.Price));
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

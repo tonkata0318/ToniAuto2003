@@ -244,5 +244,47 @@ namespace ToniAuto2003.Core.Services
             await repository.DeleteAsync<Car>(carid);
             await repository.SaveChangesAsync();
         }
+
+        public async Task<bool> IsBuyedAsync(int carId)
+        {
+            bool result=false;
+            var car = await repository.GetByIdAsync<Car>(carId);
+            if (car!=null)
+            {
+                result =car.RenterId!="";
+            }
+            return result;
+        }
+
+        public async Task<bool> IsBuyedByUserWithIdAsync(int carId, string userId)
+        {
+            bool result = false;
+            var car = await repository.GetByIdAsync<Car>(carId);
+            if (car != null)
+            {
+                result = car.RenterId == userId;
+            }
+            return result;
+        }
+
+        public async Task BuyAsync(int id, string userId)
+        {
+            var car = await repository.GetByIdAsync<Car>(id);
+            if (car != null)
+            {
+                car.RenterId = userId;
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task SellAsync(int carid)
+        {
+            var car = await repository.GetByIdAsync<Car>(carid);
+            if (car != null)
+            {
+                car.RenterId = "";
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }

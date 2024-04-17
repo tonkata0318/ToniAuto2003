@@ -10,6 +10,6 @@ namespace ToniAuto2003.Core.Models.Client
         [Required(ErrorMessage = RequiredMessage)]
         [Range(clientmoneyMin,clientmoneyMax,ErrorMessage = MoneyRequired)]
         [Display(Name = "Money")]
-        public double Money { get; set; }
+        public decimal Money { get; set; }
     }
 }

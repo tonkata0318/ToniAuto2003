@@ -50,7 +50,7 @@ namespace ToniAuto2003.Controllers
                 return View(model);
             }
 
-            await clientService.CreateAsync(User.Id(), model.Money);
+            await clientService.CreateAsync(User.Id(), (double)model.Money);
             return RedirectToAction(nameof(CarController.All), "Car");
         }
     }
