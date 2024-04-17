@@ -87,7 +87,7 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false)
+            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -104,7 +104,7 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false)
+            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -127,7 +127,7 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false)
+            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -152,7 +152,7 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await leasingService.HasAgentWithIdAsync(model.Id, User.Id()) == false)
+            if (await leasingService.HasAgentWithIdAsync(model.Id, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }

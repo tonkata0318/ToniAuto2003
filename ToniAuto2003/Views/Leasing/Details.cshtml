@@ -17,7 +17,7 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    @if (await leasingService.HasAgentWithIdAsync(Model.Id,User.Id()))
+                    @if (await leasingService.HasAgentWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
                     {
                         <a class="btn btn-warning" asp-controller="Leasing" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>

@@ -48,7 +48,7 @@ namespace ToniAuto2003.Controllers
             var userId = User.Id();
             IEnumerable<CarServiceModel> model;
 
-            if (await agentService.ExistByIdAsync(userId))
+            if (await agentService.ExistByIdAsync(userId)||User.IsAdmin())
             {
                 int agentId = await agentService.GetAgentIdAsync(userId) ?? 0;
 
@@ -133,7 +133,8 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await carService.HasAgentWithIdAsync(id,User.Id())== false)
+            if (await carService.HasAgentWithIdAsync(id,User.Id())== false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -150,7 +151,8 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await carService.HasAgentWithIdAsync(id, User.Id()) == false)
+            if (await carService.HasAgentWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin()==false)
             {
                 return Unauthorized();
             }
@@ -181,7 +183,8 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await carService.HasAgentWithIdAsync(id,User.Id())==false)
+            if (await carService.HasAgentWithIdAsync(id,User.Id())==false
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -208,7 +211,8 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await carService.HasAgentWithIdAsync(model.Id, User.Id())==false)
+            if (await carService.HasAgentWithIdAsync(model.Id, User.Id())==false
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -226,7 +230,8 @@ namespace ToniAuto2003.Controllers
                 return BadRequest();
             }
 
-            if (await agentService.ExistByIdAsync(User.Id()))
+            if (await agentService.ExistByIdAsync(User.Id())
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -238,16 +243,24 @@ namespace ToniAuto2003.Controllers
 
             var client = await clientService.GetClientFormModelById(User.Id());
             var car = carService.GetCarFormModelByIdasync(id);
-            if (client.Money>=((double)car.Result.Price))
+            if (User.IsAdmin())
             {
                 await carService.BuyAsync(id, User.Id());
-                await clientService.BuyAsync(client.Id, ((double)car.Result.Price));
-
                 return RedirectToAction(nameof(All));
             }
             else
             {
-                return BadRequest();
+                if (client.Money >= ((double)car.Result.Price))
+                {
+                    await carService.BuyAsync(id, User.Id());
+                    await clientService.BuyAsync(client.Id, ((double)car.Result.Price));
+
+                    return RedirectToAction(nameof(All));
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
         }
         [HttpPost]

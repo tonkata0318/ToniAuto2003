@@ -10,9 +10,9 @@
             <h6>Months: <b>@Model.Months</b></h6>
             <a asp-controller="Leasing" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
-            @if (this.User.Identity.IsAuthenticated && await agentService.ExistByIdAsync(User.Id()))
+            @if (this.User.Identity.IsAuthenticated && await agentService.ExistByIdAsync(User.Id()) || User.IsAdmin())
             {
-                @if (await leasingService.HasAgentWithIdAsync(Model.Id,User.Id()))
+                @if (await leasingService.HasAgentWithIdAsync(Model.Id, User.Id()) || User.IsAdmin())
                 {
                     <a asp-controller="Leasing" asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-warning">Edit</a>
