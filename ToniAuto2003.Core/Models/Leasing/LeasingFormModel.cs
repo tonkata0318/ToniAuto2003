@@ -6,6 +6,9 @@ namespace ToniAuto2003.Core.Models.Leasing
     public class LeasingFormModel
     {
         [Required(ErrorMessage = RequiredMessage)]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = RequiredMessage)]
         public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]

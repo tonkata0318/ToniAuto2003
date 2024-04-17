@@ -12,8 +12,8 @@ using ToniAuto2003.Infrastructure.Data;
 namespace ToniAuto2003.Infrastructure.Migrations
 {
     [DbContext(typeof(ToniAutoDbContext))]
-    [Migration("20240413173329_initialwithData")]
-    partial class initialwithData
+    [Migration("20240417091349_addingsomedetails")]
+    partial class addingsomedetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,15 +145,15 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5f50595c-f347-4d06-88f1-f51250aa6ba1",
+                            ConcurrencyStamp = "ad075bb3-86d7-4d87-8c7e-dde12edc44d9",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHA8BVDvrRic7/OS1PEjOoJtdEpOuk9Wd8SLtHVSCpHo5wdRrGlXL5Ib7mCHFJh0Lg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEaUtQGBh0hVVeTvDhJGvGy6Q6fkAlJyx7c0+i5R/DEb1QBDfebKTI2eUnOJyD0/xA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1a471e34-ef44-4932-a5b2-dfec5fb4718a",
+                            SecurityStamp = "2f727617-77a5-4f74-9c92-d9906b987dd9",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -161,15 +161,15 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b13c38fb-0b2a-46f4-a56f-67fed6ab11c9",
+                            ConcurrencyStamp = "9085e706-dd60-439d-abea-d651e827c6cc",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ/COKazvcdOy/8GFS/UMHG3NfnZLz8kIhvjEzXtsEkKtCBsv2Mo74R9FnpX4S4dJQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFFqnkE4PaBYSduJsX/35StZMUNFH2OL7hM40LQt+IeiAKKw2UA9z3wEaZ20d0VWmw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e5765b63-b014-4772-9b6a-aa871271eb6c",
+                            SecurityStamp = "970952e4-987d-48c4-91d8-70f2973cb1b4",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         });
@@ -279,6 +279,9 @@ namespace ToniAuto2003.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Agents");
@@ -331,7 +334,6 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("RenterId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Year")
@@ -357,7 +359,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                             Id = 1,
                             AgentId = 1,
                             CategoryId = 4,
-                            ImageUrl = "https://unsplash.com/photos/gray-volkswagen-vehicle-on-road-E5QW_maORfg",
+                            ImageUrl = "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/volkswagen-golf-plus-5.jpg?itok=egdDOy3x",
                             LeasingId = 1,
                             Make = "Volkswagen",
                             Model = "Golf 5",
@@ -370,7 +372,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                             Id = 2,
                             AgentId = 1,
                             CategoryId = 7,
-                            ImageUrl = "https://unsplash.com/photos/cars-on-road-during-daytime-sxnG1u0NCs4",
+                            ImageUrl = "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/volkswagen-touran-6.jpg?itok=tQyjcZ5M",
                             LeasingId = 1,
                             Make = "Volkswagen",
                             Model = "Touran",
@@ -383,7 +385,7 @@ namespace ToniAuto2003.Infrastructure.Migrations
                             Id = 3,
                             AgentId = 1,
                             CategoryId = 7,
-                            ImageUrl = "https://unsplash.com/photos/a-car-parked-in-the-middle-of-a-parking-lot-5BNfCStM3Ko",
+                            ImageUrl = "https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/toyota-rav-4-rt-34pan_0.jpg?itok=NJ4NDGzY",
                             LeasingId = 1,
                             Make = "Toyota",
                             Model = "Tundra",
@@ -461,8 +463,8 @@ namespace ToniAuto2003.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal>("Money")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Money")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -483,13 +485,27 @@ namespace ToniAuto2003.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AgentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AgentId1")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("AmounthPerMonth")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Months")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AgentId");
+
+                    b.HasIndex("AgentId1");
 
                     b.ToTable("Leasings");
 
@@ -497,8 +513,10 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            AgentId = 1,
                             AmounthPerMonth = 500m,
-                            Months = 12
+                            Months = 12,
+                            Name = "One Year Leasing"
                         });
                 });
 
@@ -610,9 +628,26 @@ namespace ToniAuto2003.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Leasing", b =>
+                {
+                    b.HasOne("ToniAuto2003.Infrastructure.Data.Agent", "Agent")
+                        .WithMany()
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ToniAuto2003.Infrastructure.Data.Agent", null)
+                        .WithMany("Leasings")
+                        .HasForeignKey("AgentId1");
+
+                    b.Navigation("Agent");
+                });
+
             modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Agent", b =>
                 {
                     b.Navigation("Cars");
+
+                    b.Navigation("Leasings");
                 });
 
             modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Clients", b =>

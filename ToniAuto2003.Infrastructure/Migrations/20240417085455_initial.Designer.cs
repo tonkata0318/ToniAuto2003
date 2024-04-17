@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToniAuto2003.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using ToniAuto2003.Infrastructure.Data;
 namespace ToniAuto2003.Infrastructure.Migrations
 {
     [DbContext(typeof(ToniAutoDbContext))]
-    partial class ToniAutoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417085455_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,15 +145,15 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ad075bb3-86d7-4d87-8c7e-dde12edc44d9",
+                            ConcurrencyStamp = "21affc8c-cfdd-4ad9-90a9-885435c5986f",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEaUtQGBh0hVVeTvDhJGvGy6Q6fkAlJyx7c0+i5R/DEb1QBDfebKTI2eUnOJyD0/xA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOeLn+q4/OXH5oTemBxG7hIdk+327QqXBNrRwVC3hyRrBbNeNGsgMSKy1AK1Wd/bTQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f727617-77a5-4f74-9c92-d9906b987dd9",
+                            SecurityStamp = "44b999e6-594b-4c3e-843b-470fa636ce34",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -159,15 +161,15 @@ namespace ToniAuto2003.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9085e706-dd60-439d-abea-d651e827c6cc",
+                            ConcurrencyStamp = "e4ffd113-eddb-454e-a244-124ec7403580",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFFqnkE4PaBYSduJsX/35StZMUNFH2OL7hM40LQt+IeiAKKw2UA9z3wEaZ20d0VWmw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPuRQIqNjtergBxJISKmuPasRNka0noGD6NrGtKbgzz3GjDObfgBmzP/qkHVywQuGw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "970952e4-987d-48c4-91d8-70f2973cb1b4",
+                            SecurityStamp = "e663d0c4-6083-44a1-8d6c-c9a1f04fa625",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         });
@@ -486,9 +488,6 @@ namespace ToniAuto2003.Infrastructure.Migrations
                     b.Property<int>("AgentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AgentId1")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("AmounthPerMonth")
                         .HasColumnType("decimal(18,2)");
 
@@ -502,8 +501,6 @@ namespace ToniAuto2003.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AgentId");
-
-                    b.HasIndex("AgentId1");
 
                     b.ToTable("Leasings");
 
@@ -631,12 +628,8 @@ namespace ToniAuto2003.Infrastructure.Migrations
                     b.HasOne("ToniAuto2003.Infrastructure.Data.Agent", "Agent")
                         .WithMany()
                         .HasForeignKey("AgentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ToniAuto2003.Infrastructure.Data.Agent", null)
-                        .WithMany("Leasings")
-                        .HasForeignKey("AgentId1");
 
                     b.Navigation("Agent");
                 });
@@ -644,8 +637,6 @@ namespace ToniAuto2003.Infrastructure.Migrations
             modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Agent", b =>
                 {
                     b.Navigation("Cars");
-
-                    b.Navigation("Leasings");
                 });
 
             modelBuilder.Entity("ToniAuto2003.Infrastructure.Data.Clients", b =>

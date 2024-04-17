@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToniAuto2003.Infrastructure.Data
 {
@@ -14,5 +15,11 @@ namespace ToniAuto2003.Infrastructure.Data
 
         [Required]
         public int Months { get; set; }
+
+        [Required]
+        public int AgentId { get; set; }
+
+        [ForeignKey(nameof(AgentId))]
+        public Agent Agent { get; set; } = null!;
     }
 }

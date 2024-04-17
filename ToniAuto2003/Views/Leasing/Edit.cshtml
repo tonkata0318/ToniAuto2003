@@ -1,7 +1,14 @@
-﻿@model LeasingFormModel
+﻿@model LeasingServiceModel
 @{
     ViewData["Title"] = "Edit Leasing";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
+
+
+<partial name="_LeasingFormPartialView" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

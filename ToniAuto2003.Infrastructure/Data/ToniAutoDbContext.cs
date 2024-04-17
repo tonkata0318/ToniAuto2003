@@ -30,6 +30,12 @@ namespace ToniAuto2003.Infrastructure.Data
                .HasForeignKey(l => l.LeasingId)
                .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Leasing>()
+               .HasOne(l => l.Agent)
+               .WithMany()
+               .HasForeignKey(l => l.AgentId)
+               .OnDelete(DeleteBehavior.Restrict);
+
             SeedUsers();
             builder.Entity<IdentityUser>()
                .HasData(GuestUser, AgentUser);
@@ -200,7 +206,8 @@ namespace ToniAuto2003.Infrastructure.Data
                 Id = 1,
                 Name = "One Year Leasing",
                 AmounthPerMonth = 500,
-                Months = 12
+                Months = 12,
+                AgentId = Agent.Id
             };
         }
         private void SeedCars()

@@ -7,6 +7,7 @@ using ToniAuto2003.Core.Models.Car;
 using ToniAuto2003.Core.Models.Leasing;
 using ToniAuto2003.Core.Services;
 using ToniAuto2003.Extensions;
+using ToniAuto2003.Infrastructure.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ToniAuto2003.Controllers
@@ -81,14 +82,40 @@ namespace ToniAuto2003.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = new LeasingFormModel();
+            if (await leasingService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await leasingService.GetLeasingFormModelByIdAsync(id);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, LeasingFormModel model)
+        public async Task<IActionResult> Edit(int id, LeasingServiceModel leasing)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await leasingService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                return View(leasing);
+            }
+
+            await leasingService.EditAsync(id, leasing);
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
 

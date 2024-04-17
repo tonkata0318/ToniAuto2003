@@ -71,7 +71,8 @@ namespace ToniAuto2003.Core.Services
             {
                 Name=model.Name,
                 AmounthPerMonth=model.AmounthPerMonth,
-                Months=model.Months
+                Months=model.Months,
+                AgentId=agentId
             };
 
             await repository.AddAsync(leasing);
@@ -87,6 +88,25 @@ namespace ToniAuto2003.Core.Services
                 
         }
 
+        public async Task<LeasingServiceModel?> GetLeasingFormModelByIdAsync(int id)
+        {
+            return await repository.AllReadOnly<Leasing>()
+                .Where(l => l.Id == id)
+                .Select(l => new LeasingServiceModel()
+                {
+                    Id=l.Id,
+                    Name = l.Name,
+                    AmountPerMonth = l.AmounthPerMonth,
+                    Months = l.Months
+                }).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> HasAgentWithIdAsync(int leasingId, string userId)
+        {
+            return await repository.AllReadOnly<Leasing>()
+                .AnyAsync(c => c.Id == leasingId && c.Agent.UserId == userId);
+        }
+
         public async Task<LeasingServiceModel> LeasingDetailsByIdAsync(int id)
         {
             return await repository.AllReadOnly<Leasing>()
@@ -100,5 +120,20 @@ namespace ToniAuto2003.Core.Services
                 })
                 .FirstAsync();
         }
+
+        public async Task EditAsync(int leasingId, LeasingServiceModel model)
+        {
+            var leasing = await repository.GetByIdAsync<Leasing>(leasingId);
+
+            if (leasing != null)
+            {
+                leasing.Name= model.Name;
+                leasing.AmounthPerMonth = model.AmountPerMonth;
+                leasing.Months = model.Months;
+                leasing.Id= model.Id;
+                await repository.SaveChangesAsync();
+            }
+        }
+
     }
 }

@@ -22,5 +22,7 @@ namespace ToniAuto2003.Infrastructure.Data
         public IdentityUser User { get; set; } = null!;
 
         public  List<Car> Cars { get; set; } = new List<Car>();
+
+        public List<Leasing> Leasings { get; set; } = new List<Leasing>();
     }
 }
