@@ -2,10 +2,11 @@
 using static ToniAuto2003.Core.Constants.MessageConstants;
 using static ToniAuto2003.Infrastructure.Constants.DataConstraints;
 using System.Xml.Linq;
+using ToniAuto2003.Core.Contracts;
 
 namespace ToniAuto2003.Core.Models.Car
 {
-    public class CarFormModel
+    public class CarFormModel : ICarModel
     {
         [Required(ErrorMessage = RequiredMessage)]
         public int Year { get; set; }

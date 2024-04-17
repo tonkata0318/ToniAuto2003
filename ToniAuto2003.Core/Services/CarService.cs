@@ -28,6 +28,7 @@ namespace ToniAuto2003.Core.Services
                 {
                     Id = c.Id,
                     Model = c.Model,
+                    Make=c.Make,
                     ImageUrl = c.ImageUrl
                 })
                 .ToListAsync();

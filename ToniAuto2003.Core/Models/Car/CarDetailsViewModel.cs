@@ -1,6 +1,8 @@
-﻿namespace ToniAuto2003.Core.Models.Car
+﻿using ToniAuto2003.Core.Contracts;
+
+namespace ToniAuto2003.Core.Models.Car
 {
-    public class CarDetailsViewModel
+    public class CarDetailsViewModel : ICarModel
     {
         public int Id { get; set; }
 

@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ToniAuto2003.Core.Contracts;
 using static ToniAuto2003.Core.Constants.MessageConstants;
 using static ToniAuto2003.Infrastructure.Constants.DataConstraints;
 
 namespace ToniAuto2003.Core.Models.Car
 {
-    public class CarServiceModel
+    public class CarServiceModel : ICarModel
     {
         public int Id { get; set; }
 

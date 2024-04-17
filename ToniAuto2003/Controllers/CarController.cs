@@ -4,6 +4,7 @@ using NuGet.Protocol.Core.Types;
 using System.Runtime.CompilerServices;
 using ToniAuto2003.Attributes;
 using ToniAuto2003.Core.Contracts;
+using ToniAuto2003.Core.Extensions;
 using ToniAuto2003.Core.Models.Car;
 using ToniAuto2003.Extensions;
 using ToniAuto2003.Infrastructure.Data;
@@ -68,14 +69,19 @@ namespace ToniAuto2003.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id,string information)
         {
             if (await carService.ExistsAsync(id)==false)
             {
                 return BadRequest();
             }
+
             var model = await carService.CarDetailsByIdAsync(id);
 
+            if (information!=model.GetInformation())
+            {
+                return BadRequest();
+            }
             return View(model);
         }
 
@@ -116,7 +122,7 @@ namespace ToniAuto2003.Controllers
 
             int newCarId = await carService.CreateAsync(car, agentId ?? 0);
 
-            return RedirectToAction(nameof(Details), new { id = newCarId });
+            return RedirectToAction(nameof(Details), new { id = newCarId, information=car.GetInformation()});
         }
 
         [HttpGet]
@@ -163,7 +169,7 @@ namespace ToniAuto2003.Controllers
             }
 
             await carService.EditAsync(id, car);
-            return RedirectToAction(nameof(Details), new { id = id });
+            return RedirectToAction(nameof(Details), new { id = id, information = car.GetInformation() });
         }
 
 
