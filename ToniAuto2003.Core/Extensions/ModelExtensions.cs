@@ -8,7 +8,7 @@ namespace ToniAuto2003.Core.Extensions
         public static string GetInformation(this ICarModel car)
         {
             string info= car.Make.Replace(" ", "-") + GetModel(car.Model);
-            Regex.Replace(info, @"[^a-zA-Z0-9\-]", string.Empty);
+            info=Regex.Replace(info, @"[^a-zA-Z0-9\-]", string.Empty);
 
             return info;
 

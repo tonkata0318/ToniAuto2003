@@ -1,4 +1,5 @@
-﻿<ul class="navbar-nav flex-grow-1">
+﻿@inject IAgentService agentService
+<ul class="navbar-nav flex-grow-1">
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="All">All Cars</a>
     </li>
@@ -10,11 +11,14 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Mine">My cars</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
-        </li>
+        @if (await agentService.ExistByIdAsync(User.Id()))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Leasing" asp-action="Add">Add Leasing</a>
             </li>
+        }
     }
 </ul>

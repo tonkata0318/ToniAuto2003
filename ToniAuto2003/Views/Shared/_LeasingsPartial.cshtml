@@ -1,4 +1,6 @@
 ﻿@model LeasingServiceModel
+@inject IAgentService agentService
+@inject ILeasingService leasingService
 
 <div class="col-md-4">
     <div class="card mb-3">
@@ -8,12 +10,15 @@
             <h6>Months: <b>@Model.Months</b></h6>
             <a asp-controller="Leasing" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
-            @if (this.User.Identity.IsAuthenticated)
+            @if (this.User.Identity.IsAuthenticated && await agentService.ExistByIdAsync(User.Id()))
             {
-                <a asp-controller="Leasing" asp-action="Edit" asp-route-id="@Model.Id"
+                @if (await leasingService.HasAgentWithIdAsync(Model.Id,User.Id()))
+                {
+                    <a asp-controller="Leasing" asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-warning">Edit</a>
                 <a asp-controller="Leasing" asp-action="Delete" asp-route-id="@Model.Id"
                class="btn btn-danger">Delete</a>
+                }
                 <p></p>
             }
         </div>

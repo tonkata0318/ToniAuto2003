@@ -1,4 +1,5 @@
 ﻿@model LeasingServiceModel
+@inject ILeasingService leasingService
 
 @{
     ViewBag.Title = "Leasing Details";
@@ -16,10 +17,13 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-warning" asp-controller="Leasing" asp-action="Edit"
+                    @if (await leasingService.HasAgentWithIdAsync(Model.Id,User.Id()))
+                    {
+                        <a class="btn btn-warning" asp-controller="Leasing" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
                     <a class="ml-2 btn btn-danger" asp-controller="Leasing" asp-action="Delete"
                    asp-route-id="@Model.Id">Delete</a>
+                    }
                 }
             </div>
         </div>
