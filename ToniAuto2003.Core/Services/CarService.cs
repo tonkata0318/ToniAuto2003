@@ -175,6 +175,7 @@ namespace ToniAuto2003.Core.Services
                     Year = c.Year,
                     Agent = new Models.Agent.AgentServiceModel()
                     {
+                        FullName=$"{c.Agent.User.FirstName} {c.Agent.User.LastName}",
                         Email = c.Agent.User.Email,
                         PhoneNumber = c.Agent.PhoneNumber
                     },
