@@ -40,7 +40,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<ToniAutoDbContext>();
+            })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ToniAutoDbContext>();
             return services;
         }
     }

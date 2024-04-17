@@ -3,6 +3,7 @@ using ToniAuto2003.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToniAuto2003.Infrastructure.Data;
+using ToniAuto2003.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ToniAutoDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ToniAutoDbContextConnection' not found.");
@@ -54,4 +55,6 @@ app.UseEndpoints(endpoints =>
 
 });
 
-app.Run();
+await app.CreateAdminRoleAsync();
+
+await app.RunAsync();

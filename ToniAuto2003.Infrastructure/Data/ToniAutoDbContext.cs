@@ -38,11 +38,11 @@ namespace ToniAuto2003.Infrastructure.Data
 
             SeedUsers();
             builder.Entity<ApplicationUser>()
-               .HasData(GuestUser, AgentUser);
+               .HasData(GuestUser, AgentUser,AdminUser);
 
             SeedAgent();
             builder.Entity<Agent>()
-                .HasData(Agent);
+                .HasData(Agent,AdminAgent);
 
             SeedCategories();
             builder.Entity<Category>()
@@ -78,7 +78,10 @@ namespace ToniAuto2003.Infrastructure.Data
 
         private ApplicationUser AgentUser { get; set; } = null!;
 
+        private ApplicationUser AdminUser { get; set; } = null!;
         private Agent Agent { get; set; } = null!;
+
+        private Agent AdminAgent { get; set; } = null!;
 
         private Category HatchbackCategory { get; set; } = null!;
 
@@ -127,7 +130,9 @@ namespace ToniAuto2003.Infrastructure.Data
                 UserName = "agent@mail.com",
                 NormalizedUserName = "agent@mail.com",
                 Email = "agent@mail.com",
-                NormalizedEmail = "agent@mail.com"
+                NormalizedEmail = "agent@mail.com",
+                FirstName="Agent",
+                LastName="Agentov"
             };
 
             AgentUser.PasswordHash =
@@ -139,11 +144,27 @@ namespace ToniAuto2003.Infrastructure.Data
                 UserName = "guest@mail.com",
                 NormalizedUserName = "guest@mail.com",
                 Email = "guest@mail.com",
-                NormalizedEmail = "guest@mail.com"
+                NormalizedEmail = "guest@mail.com",
+                FirstName = "Guest",
+                LastName = "Guestov"
             };
 
             GuestUser.PasswordHash =
             hasher.HashPassword(GuestUser, "guest123");
+
+            AdminUser = new ApplicationUser()
+            {
+                Id = "7e568a55-bc9c-4547-85b9-a9e4170f5ba2",
+                UserName = "admin@mail.com",
+                NormalizedUserName = "admin@mail.com",
+                Email = "admin@mail.com",
+                NormalizedEmail = "admin@mail.com",
+                FirstName = "Admin",
+                LastName = "Adminov"
+            };
+
+            AdminUser.PasswordHash =
+            hasher.HashPassword(AdminUser, "admin123");
         }
 
 
@@ -197,6 +218,12 @@ namespace ToniAuto2003.Infrastructure.Data
                 Id = 1,
                 PhoneNumber = "+359888888888",
                 UserId = AgentUser.Id
+            };
+            AdminAgent = new Agent()
+            {
+                Id = 3,
+                PhoneNumber = "+3598517788",
+                UserId = AdminUser.Id
             };
         }
         private void SeedLeasings()
