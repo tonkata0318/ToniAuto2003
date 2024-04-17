@@ -43,5 +43,7 @@ namespace ToniAuto2003.Core.Contracts
         Task<bool> HasAgentWithIdAsync(int carId, string userId);
 
         Task<CarFormModel?> GetCarFormModelByIdasync(int id);
+
+        Task DeleteAsync(int carid);
     }
 }

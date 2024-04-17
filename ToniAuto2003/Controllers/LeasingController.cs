@@ -122,13 +122,43 @@ namespace ToniAuto2003.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var model = new LeasingDetailsViewModel();
+            if (await leasingService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await leasingService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var leasing = await leasingService.LeasingDetailsByIdAsync(id);
+            var model = new LeasingDetailsViewModel()
+            {
+                Id = id,
+                Name=leasing.Name,
+                AmountPerMonth=leasing.AmountPerMonth,
+                Months=leasing.Months
+            };
+
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(LeasingDetailsViewModel model)
         {
+            if (await leasingService.ExistsAsync(model.Id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await leasingService.HasAgentWithIdAsync(model.Id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await leasingService.DeleteAsync(model.Id);
+
             return RedirectToAction(nameof(All));
         }
     }

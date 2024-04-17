@@ -24,5 +24,7 @@ namespace ToniAuto2003.Core.Contracts
         Task<LeasingServiceModel?> GetLeasingFormModelByIdAsync(int id);
 
         Task EditAsync(int leasingId, LeasingServiceModel model);
+
+        Task DeleteAsync(int leasingId);
     }
 }

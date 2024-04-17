@@ -135,5 +135,13 @@ namespace ToniAuto2003.Core.Services
             }
         }
 
+        public async Task DeleteAsync(int leasingId)
+        {
+            var leasing = await repository.AllReadOnly<Leasing>().FirstOrDefaultAsync(c => c.Id == leasingId);
+
+            await repository.DeleteAsync<Leasing>(leasingId);
+            await repository.SaveChangesAsync();
+        }
+
     }
 }
